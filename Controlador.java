@@ -11,7 +11,6 @@ public class Controlador
 
     public void setq(String instruccion)
     {
-        instruccion = instruccion.trim().replaceAll("\\s+", " ");
         instruccion = this.limpiar(instruccion, "s", "q", 3);
 
         //Se mira si la cadena tiene mas parentesis dentro de ella
@@ -291,11 +290,11 @@ public class Controlador
         return instruccion;
     }
 
-    public void list(String instruccion)
+    public String list(String instruccion)
     {
         instruccion = this.limpiar(instruccion, "l", "t", 3);
         instruccion = "(" + instruccion + ")";
-        System.out.println("\n'" + instruccion + "'");
+        return instruccion;
     }
 
     public boolean listp(String instruccion)
