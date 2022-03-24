@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Vector;
 
 public class Principal
 {
@@ -10,14 +11,27 @@ public class Principal
 
         System.out.println("\nIngrese la linea: ");
         instruccion = scanner.nextLine();
-        controlador.setq(instruccion);
+        System.out.println("\nListp: " + controlador.listp(instruccion));
+        //controlador.list(instruccion);
+        //System.out.println("\nAscendente: '" + controlador.ascendente(instruccion) + "'");
+        //System.out.println("\nDescendente: '" + controlador.descendente(instruccion) + "'");
+        //controlador.setq(instruccion);
+
+        /*System.out.println("\nIngrese la linea: ");
+        instruccion = scanner.nextLine();
+        instruccion = controlador.limpiar(instruccion, "a", "m", 3);
+        System.out.println("\nLimpiado: '" + instruccion + "'");
+        String[] k = instruccion.split(" ");
+        System.out.println("\nNombre: '" + k[0] + "' Valor: '" + k[1] + "'" + " Cantidad: " + k.length);
+        //controlador.setq(instruccion);
+        System.out.println(controlador.atom(instruccion));
+
+        System.out.println("\nIngrese la linea: ");
+        instruccion = scanner.nextLine();
+        System.out.println(controlador.atom(instruccion));*/
 
         
-        System.out.println("\nIngrese la linea: ");
-        instruccion = scanner.nextLine();
-        controlador.setq(instruccion);
-
-        System.out.println("\nIngrese la linea: ");
+        /*System.out.println("\nIngrese la linea: ");
         instruccion = scanner.nextLine();
         controlador.setq(instruccion);
         
@@ -26,7 +40,7 @@ public class Principal
         controlador.setq(instruccion);
         
         
-        System.out.println(controlador.imprimir());
+        System.out.println(controlador.imprimir());*/
         
         
         //System.out.println(controlador.operaciones());
@@ -78,8 +92,28 @@ public class Principal
 
         System.out.println("\nNombre: '" + split[0] + "' Valor: '" + split[1] + "'" + " Cantidad: " + split.length);
         -------------------------------------------------------*/
+        
+        
+        /*instruccion = instruccion.trim().replaceAll("\\s+", " ");
+        StringBuilder editado = new StringBuilder(instruccion);
+        System.out.println("\nSin espacios: '" + instruccion + "'");
 
+        editado.deleteCharAt(0);
+        editado.deleteCharAt(editado.length() - 1);
+        System.out.println("\nEditado: '" + editado + "'");
+        
+        int indexInicio = editado.indexOf("s");
+        int indexFinal = editado.indexOf("q");
+        if((indexFinal - indexInicio) == 3) editado.delete(indexInicio, indexFinal + 1);
+        instruccion = new String(editado).trim();
+        instruccion = instruccion.replaceAll("\\s+", " ");
 
-       
+        System.out.println("\nInstruccion: '" + instruccion + "'");
+        
+        System.out.println("\nProbando: '" + instruccion.replaceAll("\\s+", " ") + "'");
+
+        String[] split = instruccion.split(" ");
+
+        System.out.println("\nNombre: '" + split[0] + "' Valor: '" + split[1] + "'" + " Cantidad: " + split.length);*/
     }
 }
