@@ -615,6 +615,8 @@ public class Interprete {
             setq(expresion);
         } else if (funcion == 2) {
             System.out.println(atom(expresion));
+        } else if (funcion >= 7 || funcion <= 10){
+            System.out.println(CalculadoraPosfix.Evaluar(expresion));
         }
     }
 
@@ -654,5 +656,6 @@ public class Interprete {
             }
         }
     }
+    
 
 }
