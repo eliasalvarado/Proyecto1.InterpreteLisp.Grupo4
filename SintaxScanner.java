@@ -29,8 +29,8 @@ public class SintaxScanner
 	 * 12: quote
 	 * 13: cond
 	 * 14: defun
-	 * @param Expresion The expresion given by the user
-	 * @return An integer greater than 0 that indicates the type of the operation, -1 if the expression is not valid
+	 * @param Expresion La expresion puede ser ingresada por el usuario u obtenida del archivo de texto
+	 * @return Un entero
 	 */
 	public static int getState(String expresion){
 		if(evaluate("^[ ]*[(][ ]*setq[ ]+[\\w]+[ ]+[0-9]+[ ]*[)][ ]*$", expresion)) //SETQ
@@ -62,14 +62,14 @@ public class SintaxScanner
 		else if(evaluate("^[ ]*[(][ ]*defun[ ]+[A-Za-z0-9]+[ ]*[(][ ]*([A-Za-z0-9]+[ ]*)+[ ]*[)][ ]*[(]*[^()\\\"']*.*[)][ ]*$", expresion)) //defun
 			return 14;
         else 
-			return 0; //if no match found then the expression is incorrect. podria ser una funcion definida por el usuario
+			return 0; //Podria ser una funcion definida por el usuario o simplemente esta mal redactada la expresion
 	}
 	
 	/***
 	 * Metodo encargado de evaluar a la expresion y hacer un match si este concuerda con el regex
-	 * @param regex the patter of the expresion
-	 * @param expresion The expresion given by the user
-	 * @return true if is a match, false otherwise
+	 * @param regex El pattern de la expresion a evaluar
+	 * @param expresion La expresion en cuestion
+	 * @return True si concuerda, False si no.
 	 */
 	private static boolean evaluate(String regex, String expresion) {
 		Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
