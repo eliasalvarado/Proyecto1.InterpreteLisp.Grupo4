@@ -34,7 +34,7 @@ public class SintaxScanner
 	 * @return Un entero
 	 */
 	public static int getState(String expresion){
-		if(evaluate("^[ ]*[(][ ]*setq[ ]+[\\w]+[ ]+[0-9]+[ ]*[)][ ]*$", expresion)) //SETQ
+		if(evaluate("^[ ]*[(][ ]*setq[ ]+[\w]+[ ]+([0-9]+[ ]*)+[)][ ]*$", expresion)) //SETQ
 			return 1;
 		else if(evaluate("^[ ]*[(][ ]*atom[ ]+[A-Za-z0-9]+[ ]*[)][ ]*$", expresion)) //ATOM
 			return 2;
