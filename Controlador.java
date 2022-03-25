@@ -3,11 +3,39 @@ import java.util.HashMap;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.ArrayList;
 
 public class Controlador
 {
     private HashMap<String, Integer> variables = new HashMap<>();
     private HashMap<String, String> listas = new HashMap<>();
+
+    public void Jerarqui(String exp){
+        ArrayList<String> jerarquias = new ArrayList<String>();
+		boolean bandera =true;
+		int pos=0;
+		String func="";
+		while(bandera) {
+			func = "";
+			pos = exp.lastIndexOf("(");
+			int cont =0;
+			boolean bandera2 = true;			
+			while(bandera2) {
+				if(String.valueOf(exp.charAt(pos+cont)).equals(")")) {
+					bandera2 = false;
+				}else {
+					func = func+String.valueOf(exp.charAt(pos+cont));
+					cont++;
+				}				
+			}
+			func = func+")";
+			jerarquias.add(func);
+			exp = exp.replace(func, "");
+			if(pos == 0) {
+				bandera=false;
+			}
+		}
+    }
 
     public void setq(String instruccion)
     {
