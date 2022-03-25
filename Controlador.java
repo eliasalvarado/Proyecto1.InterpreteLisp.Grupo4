@@ -88,7 +88,7 @@ public class Controlador
         return info;
     }
 
-    public boolean atom(String instruccion) //CAMBIAR A QUE DEVUELVA "T" SI ES TRUE O "NIL" SI ES FALSO
+    public String atom(String instruccion) //CAMBIAR A QUE DEVUELVA "T" SI ES TRUE O "NIL" SI ES FALSO
     {  
         instruccion = this.limpiar(instruccion, "a", "m", 3);
         //aqui debe ir un codigo para convertir la "instruccion" si es que esta viene con una funcion definida por el usuario
@@ -97,7 +97,7 @@ public class Controlador
         boolean esAtom = matcher.find();  //El matcher.find() cambia cada vez que se utiliza, por lo que se guarda el match en la varibale "esAtom"
         if(esAtom)
         {
-            return esAtom;
+            return "T";
         }
         else
         {
@@ -107,12 +107,13 @@ public class Controlador
             {
                 try {
                     int valor = this.variables.get(instruccion);
-                    return true;
+                    return "T";
                 } catch (Exception e) {
-                    return false;
+                    if(this.listas.containsKey(instruccion)) return "NIL";
+                    else return instruccion + " no tiene valor. Por lo que no se puede determinar si es atom o no.";
                 }
             }
-            return false;
+            return "NIL";
         }
         
         
@@ -171,7 +172,7 @@ public class Controlador
         */
     }
 
-    public boolean equal(String instruccion)
+    public String equal(String instruccion)
     {
         instruccion = this.limpiar(instruccion, "e", "l", 4);
 
@@ -182,7 +183,8 @@ public class Controlador
 
         if(sonNumeros)
         {
-            return (Integer.valueOf(split[0])  == Integer.valueOf(split[1]));
+            if(Integer.valueOf(split[0])  == Integer.valueOf(split[1])) return "T";
+            else return "NIL";
         }
         else //Pueden ser numeros y letras (variables) juntos o solo variables
         {
@@ -192,13 +194,18 @@ public class Controlador
             if(sonLetras) //Son solo letras, por lo tanto, son variables definidas por el usuario
             {
                 try {
-                    int primero = this.variables.get(split[0]);
-                    int segundo = this.variables.get(split[1]);
-                    return (primero == segundo);
+                    if(this.variables.containsKey(split[0]) && this.variables.containsKey(split[1]))
+                    {
+                        int primero = this.variables.get(split[0]);
+                        int segundo = this.variables.get(split[1]);
+                        if(primero == segundo) return "T";
+                        else return "NIL";
+                    }
+                    else return "Uno de los argumentos no existe (variable no definida)";
                 } catch (Exception e) {
                     //TODO: handle exception
                     System.out.println("\n" + e);
-                    return false;
+                    return "NIL";
                 }
             }
             else //Son letras (variables definidas por el usaurio) y numeros
@@ -212,24 +219,26 @@ public class Controlador
                     {
                         int primero = this.variables.get(split[0]);
                         int segundo = Integer.valueOf(split[1]);
-                        return (primero == segundo);
+                        if(primero == segundo) return "T";
+                        else return "NIL";
                     }
                     else
                     {
                         int primero = Integer.valueOf(split[0]);
                         int segundo = this.variables.get(split[1]);
-                        return (primero == segundo);
+                        if(primero == segundo) return "T";
+                        else return "NIL";
                     }
                 } catch (Exception e) {
                     //TODO: handle exception
                     System.out.println("\n" + e);
-                    return false;
+                    return "Uno de los argumentos no existe (variable no definida)";
                 }
             }
         }
     }
 
-    public boolean ascendente(String instruccion)
+    public String ascendente(String instruccion)
     {
         instruccion = this.limpiarSimbolo(instruccion);
 
@@ -277,7 +286,7 @@ public class Controlador
                             numeros.add(this.variables.get(split[i]));
                         } catch (Exception e) {
                             //TODO: handle exception
-                            System.out.println("\n" + e);
+                            return "\n" + e;
                         }
                         
                     }
@@ -287,12 +296,12 @@ public class Controlador
         }
         for (int i = 0; i < numeros.size() - 1; i++)
         {
-            if((numeros.get(i)) > numeros.get(i + 1)) return false;
+            if((numeros.get(i)) > numeros.get(i + 1)) return "NIL";
         }
-        return true;
+        return "T";
     }
 
-    public boolean descendente(String instruccion)
+    public String descendente(String instruccion)
     {
         instruccion = this.limpiarSimbolo(instruccion);
 
@@ -341,7 +350,7 @@ public class Controlador
                             numeros.add(this.variables.get(split[i]));
                         } catch (Exception e) {
                             //TODO: handle exception
-                            System.out.println("\n" + e);
+                            return "\n" + e;
                         }
                         
                     }
@@ -353,9 +362,9 @@ public class Controlador
 
         for (int i = 0; i < numeros.size() - 1; i++)
         {
-            if((numeros.get(i)) < numeros.get(i + 1)) return false;
+            if((numeros.get(i)) < numeros.get(i + 1)) return "NIL";
         }
-        return true;
+        return "T";
     }
 
     public String limpiarSimbolo(String instruccion)
@@ -397,7 +406,7 @@ public class Controlador
         return list;
     }
 
-    public boolean listp(String instruccion)
+    public String listp(String instruccion)
     {
         instruccion = this.limpiar(instruccion, "l", "p", 4);
         //aqui debe ir un codigo para convertir la "instruccion" si es que esta viene con una funcion definida por el usuario
@@ -406,7 +415,7 @@ public class Controlador
         boolean esListp = matcher.find();  //El matcher.find() cambia cada vez que se utiliza, por lo que se guarda el match en la varibale "esAtom"
         if(esListp)
         {
-            return false;
+            return "NIL";
         }
         else
         {
@@ -416,12 +425,12 @@ public class Controlador
             {
                 try {
                     int valor = this.variables.get(instruccion);
-                    return false;
+                    return "NIL";
                 } catch (Exception e) {
-                    return true;
+                    return "T";
                 }
             }
-            return true;
+            return "T";
         }
     }
 }
