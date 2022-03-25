@@ -419,6 +419,9 @@ public class Controlador
 		String accion = "";
 		String linea="";
 		String expresion="";
+        String funcion="";
+        String expresion_resp="";
+        String parametro ="";
         for (int i =0;i<lineas.length;i++) {//ciclo que recorre todas las líneas
 			expresion ="";			
 			operador="";
@@ -426,7 +429,9 @@ public class Controlador
 			valor2="";
 			accion="";
 			linea = lineas[i];
-            
+            funcion="";
+            expresion_resp="";
+            parametro ="";
 			for (int j = 0; j<linea.length();j++) {// quita parentesis de la expresion
 				if (String.valueOf(linea.charAt(j)).equals("(")||String.valueOf(linea.charAt(j)).equals(")")) {
 					//no pasa nada
@@ -436,6 +441,7 @@ public class Controlador
 			operador = expresion.substring(0, 1).trim();
 			
 			expresion = expresion.substring(1).trim(); //quita operador de la expresion 
+            expresion_resp= expresion;//Se guarda otra expresion sin operador por si es una funcion y no una variable.
 			boolean bandera = false;
 
 			for (int x = 0;x<expresion.length();x++) {	//ciclo para encontrar primer valor			
@@ -461,7 +467,7 @@ public class Controlador
 					}
 				}
 			}
-            
+
 			valor2.trim();
 			expresion = expresion.substring(valor2.length()).trim(); //quita valor2 de la expresion (dejando solo la accion)
 			accion = expresion;
@@ -469,31 +475,95 @@ public class Controlador
 			//--------------------------------ya estan todos separados------------------------------------------
 			
 			//-------------------------------comienza la evaluación---------------------------------------------
-			int val1 = variables.get(valor1); //llamar al Hash con nombre de la variable
-			int val2 = Integer.parseInt(valor2);
-			switch(operador) {
-			case "=":				
-				if (val1 == val2) {
-					if(txt.equals("")) {
-						txt=accion;
-					}					
-				}
-				break;
-			case ">":
-				if (val1 > val2) {
-					if(txt.equals("")) {
-						txt=accion;
-					}
-				}
-				break;
-			case "<":
-				if (val1 < val2) {
-					if(txt.equals("")) {
-						txt=accion;
-					}
-				}
-				break;
-			}
+            if (variables.containsKey(valor1)){//el valor1 es una variable
+                int val1 = variables.get(valor1); //llamar al Hash con nombre de la variable
+                int val2 = Integer.parseInt(valor2);
+                switch(operador) {
+                case "=":				
+                    if (val1 == val2) {
+                        //hacer accion
+                        if(txt.equals("")) {
+                            txt=accion;
+                        }					
+                    }
+                    break;
+                case ">":
+                    if (val1 > val2) {
+                        //hacer accion
+                        if(txt.equals("")) {
+                            txt=accion;
+                        }
+                    }
+                    break;
+                case "<":
+                    if (val1 < val2) {
+                        //hacer accion
+                        if(txt.equals("")) {
+                            txt=accion;
+                        }
+                    }
+                    break;
+                }
+            }else{
+                //el valor1 no es una variable es función
+                // hay que reajustar las variables.
+                valor2="";
+                
+                funcion = valor1;
+                expresion_resp = expresion_resp.substring(funcion.length()).trim();//se quita la funcion de la expresion
+                boolean bandera3 = false;
+                
+                for (int y =0;y<expresion_resp.length();y++){//ciclo para encontrar el parámetro de la función
+                    if(String.valueOf(expresion_resp.charAt(y)).equals(" ")){
+                        bandera3 = true;// encontro un espacio
+                    }else{
+                        if (bandera3 == false){
+                            parametro = parametro + expresion_resp.charAt(y);
+                        }
+                    }
+                }
+
+                parametro = parametro.trim();
+                expresion_resp = expresion_resp.substring(parametro.length()).trim();
+                boolean bandera4 = false;
+
+                for(int t = 0;t<expresion_resp.length();t++){
+                    if(String.valueOf(expresion_resp.charAt(t)).equals(" ")){
+                        bandera4=true;//encontro un espacio
+                    }else{
+                        if (bandera4==false){
+                            valor2 = valor2 +expresion_resp.charAt(t);
+                        }
+                    }
+                }
+                
+                valor2 = valor2.trim();
+                expresion_resp = expresion_resp.substring(valor2.length());
+                accion = expresion.trim();
+                //-------------------------------------Ya estan todos separados-------------------------------
+                //llamar a la función con el parámetro encontrado y colocar el resultado en resultado
+                int resultado = 0;
+                int val3 = Integer.parseInt(valor2);
+                switch(operador) {
+                    case "=":
+                        
+                        if (resultado == val3) {
+                            //hacer accion				
+                        }
+                        break;
+                    case ">":
+                        if (resultado > val3) {
+                            //hacer accion
+                        }
+                        break;
+                    case "<":
+                        if (resultado < val3) {
+                            //hacer accion
+                        }
+                        break;
+                    }
+            }
+			
 		}
         return txt;
     }
