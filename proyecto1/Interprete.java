@@ -611,12 +611,13 @@ public class Interprete {
     }
 
     public void Evaluar(String expresion, int funcion) {
+        CalculadoraPosfix calculadora = CalculadoraPosfix.getInstance();
         if (funcion == 1) {
             setq(expresion);
         } else if (funcion == 2) {
             System.out.println(atom(expresion));
         } else if (funcion >= 7 || funcion <= 10){
-            System.out.println(CalculadoraPosfix.Evaluar(expresion));
+            System.out.println(calculadora.Evaluar(expresion));
         }
     }
 
