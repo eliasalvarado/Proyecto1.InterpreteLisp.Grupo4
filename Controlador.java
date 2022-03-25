@@ -41,7 +41,7 @@ public class Controlador
                 if(caracter.equals("(") || caracter.equals(")")) listaE.deleteCharAt(i); //Se eliminan los parentesis para poder hacer la limpieza de espacios en blanco innecesarios
             }
             lista = new String(listaE).trim().replaceAll("\\s+", " ");
-            lista = "(" + lista + ")";
+            lista = "(" + lista + ")";  //se regresan los parentesis a la lista para poder manejarla luego como tal
 
         }
 
@@ -180,21 +180,51 @@ public class Controlador
         boolean sonNumeros = matcher.find();
         String[] split = instruccion.split(" ");
 
-        System.out.println("\nLimpiado EQUAL: '" + instruccion + "'"); //BORRAR
         if(sonNumeros)
         {
-            System.out.println("\nValor1: '" + split[0] + "' Valor2: '" + split[1] + "'" + " Cantidad: " + split.length);
             return (Integer.valueOf(split[0])  == Integer.valueOf(split[1]));
         }
-        else
+        else //Pueden ser numeros y letras (variables) juntos o solo variables
         {
-            try {
-                int primero = this.variables.get(split[0]);
-                int segundo = this.variables.get(split[1]);
-                System.out.println("\nValor1: '" + primero + "' Valor2: '" + segundo + "'");  //BORRAR
-                return (primero == segundo);
-            } catch (Exception e) {
-                return false;
+            Pattern letras = Pattern.compile("^[a-zA-Z]+[ ]+[a-zA-Z]+$", Pattern.CASE_INSENSITIVE);
+            Matcher matcher2 = letras.matcher(instruccion);
+            boolean sonLetras = matcher2.find();
+            if(sonLetras) //Son solo letras, por lo tanto, son variables definidas por el usuario
+            {
+                try {
+                    int primero = this.variables.get(split[0]);
+                    int segundo = this.variables.get(split[1]);
+                    return (primero == segundo);
+                } catch (Exception e) {
+                    //TODO: handle exception
+                    System.out.println("\n" + e);
+                    return false;
+                }
+            }
+            else //Son letras (variables definidas por el usaurio) y numeros
+            {   
+                try {
+                    Pattern letra = Pattern.compile("^[a-zA-Z]+$", Pattern.CASE_INSENSITIVE);
+                    Matcher matcher3 = letra.matcher(split[0]);
+                    boolean esLetra = matcher3.find();
+
+                    if(esLetra)
+                    {
+                        int primero = this.variables.get(split[0]);
+                        int segundo = Integer.valueOf(split[1]);
+                        return (primero == segundo);
+                    }
+                    else
+                    {
+                        int primero = Integer.valueOf(split[0]);
+                        int segundo = this.variables.get(split[1]);
+                        return (primero == segundo);
+                    }
+                } catch (Exception e) {
+                    //TODO: handle exception
+                    System.out.println("\n" + e);
+                    return false;
+                }
             }
         }
     }
@@ -217,16 +247,42 @@ public class Controlador
             }
             
         }
-        else
+        else //Pueden ser numeros y letras (variables) juntos o solo variables
         {
-            try {
+            Pattern letras = Pattern.compile("^[a-zA-Z ]+$", Pattern.CASE_INSENSITIVE);
+            Matcher matcher2 = letras.matcher(instruccion);
+            boolean sonLetras = matcher2.find();
+            if(sonLetras) //Son solo letras, por lo tanto, son variables definidas por el usuario
+            {
+                try {
+                    for(int i = 0; i < split.length; i++)
+                    {
+                        numeros.add(this.variables.get(split[i]));
+                    }
+                } catch (Exception e) {
+                    //TODO: handle exception
+                    System.out.println("\n" + e);
+                }
+            }
+            else //Son letras (variables definidas por el usaurio) y numeros
+            {
                 for(int i = 0; i < split.length; i++)
                 {
-                    numeros.add(this.variables.get(split[i]));
+                    Pattern letra = Pattern.compile("^[a-zA-Z]+$", Pattern.CASE_INSENSITIVE);
+                    Matcher matcher3 = letra.matcher(split[i]);
+                    boolean esLetra = matcher3.find();
+                    if(esLetra)
+                    {
+                        try {
+                            numeros.add(this.variables.get(split[i]));
+                        } catch (Exception e) {
+                            //TODO: handle exception
+                            System.out.println("\n" + e);
+                        }
+                        
+                    }
+                    else numeros.add(Integer.valueOf(split[i]));
                 }
-            } catch (Exception e) {
-                //TODO: handle exception
-                System.out.println("\n" + e);
             }
         }
         for (int i = 0; i < numeros.size() - 1; i++)
@@ -257,15 +313,42 @@ public class Controlador
         }
         else
         {
-            try {
+            Pattern letras = Pattern.compile("^[a-zA-Z ]+$", Pattern.CASE_INSENSITIVE);
+            Matcher matcher2 = letras.matcher(instruccion);
+            boolean sonLetras = matcher2.find();
+            if(sonLetras) //Son solo letras, por lo tanto, son variables definidas por el usuario
+            {
+                try {
+                    for(int i = 0; i < split.length; i++)
+                    {
+                        numeros.add(this.variables.get(split[i]));
+                    }
+                } catch (Exception e) {
+                    //TODO: handle exception
+                    System.out.println("\n" + e);
+                }
+            }
+            else //Son letras (variables definidas por el usaurio) y numeros
+            {
                 for(int i = 0; i < split.length; i++)
                 {
-                    numeros.add(this.variables.get(split[i]));
+                    Pattern letra = Pattern.compile("^[a-zA-Z]+$", Pattern.CASE_INSENSITIVE);
+                    Matcher matcher3 = letra.matcher(split[i]);
+                    boolean esLetra = matcher3.find();
+                    if(esLetra)
+                    {
+                        try {
+                            numeros.add(this.variables.get(split[i]));
+                        } catch (Exception e) {
+                            //TODO: handle exception
+                            System.out.println("\n" + e);
+                        }
+                        
+                    }
+                    else numeros.add(Integer.valueOf(split[i]));
                 }
-            } catch (Exception e) {
-                //TODO: handle exception
-                System.out.println("\n" + e);
             }
+
         }
 
         for (int i = 0; i < numeros.size() - 1; i++)
