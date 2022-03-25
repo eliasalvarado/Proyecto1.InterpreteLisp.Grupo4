@@ -614,10 +614,28 @@ public class Interprete {
         CalculadoraPosfix calculadora = CalculadoraPosfix.getInstance();
         if (funcion == 1) {
             setq(expresion);
-        } else if (funcion == 2) {
+        }else if (funcion == 2) {
             System.out.println(atom(expresion));
-        } else if (funcion >= 7 || funcion <= 10){
+        }else if (funcion == 3) {
+            System.out.println(list(expresion));
+        }else if (funcion == 4) {
+            System.out.println(listp(expresion));
+        }else if (funcion == 5) {
+            System.out.println(equal(expresion));
+        }else if (funcion == 6) {
+            System.out.println(ascendente(expresion));
+        }else if (funcion == 7) {
+            System.out.println(descendente(expresion));
+        }else if (funcion >= 8 || funcion <= 11){
+            StringBuilder editado = new StringBuilder(expresion.trim().replaceAll("\\s+", " "));
+            editado.deleteCharAt(0);
+            editado.deleteCharAt(editado.length() - 1);
+            expresion = new String(editado);
             System.out.println(calculadora.Evaluar(expresion));
+        }else if (funcion == 12) {
+            System.out.println(Quote(expresion));
+        }else if (funcion == 13) {
+            System.out.println(Cond(expresion));
         }
     }
 

@@ -19,11 +19,12 @@ public class Controlador {
 		System.out.println("Bienvenido al interpreter Lisp ingrese una expresion o escriba exit para salir");
 		String opt = "";
 		do {
-                        System.out.println("↓");
+            System.out.println("↓");
 			opt = in.nextLine();
 			
-			if (!opt.equals("exit")) {
-                            inter.Evaluar(opt, SintaxScanner.getState(opt));
+			if (!opt.equals("exit"))
+			{
+                inter.Evaluar(opt, SintaxScanner.getState(opt));
 			}
 			
 		}while (!opt.equals("exit"));
