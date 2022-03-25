@@ -13,6 +13,13 @@ public class Principal
         instruccion = scanner.nextLine();
         controlador.setq(instruccion);
         System.out.println(controlador.imprimir());
+
+        System.out.println("\nIngrese la linea: ");
+        instruccion = scanner.nextLine();
+        System.out.println(controlador.atom(instruccion));
+
+
+        //System.out.println(controlador.imprimir());
         //System.out.println("\nListp: " + controlador.listp(instruccion));
         //controlador.list(instruccion);
         //System.out.println("\nAscendente: '" + controlador.ascendente(instruccion) + "'");
