@@ -12,12 +12,22 @@ public class Principal
         System.out.println("\nIngrese la linea: ");
         instruccion = scanner.nextLine();
         controlador.setq(instruccion);
+        System.out.println("\nIngrese la linea: ");
+        instruccion = scanner.nextLine();
+        controlador.setq(instruccion);
         System.out.println(controlador.imprimir());
+
 
         System.out.println("\nIngrese la linea: ");
         instruccion = scanner.nextLine();
-        System.out.println(controlador.atom(instruccion));
-
+        System.out.println("\nList: " + controlador.list(instruccion));
+        /*instruccion = controlador.limpiar(instruccion, "l", "t", 3);
+        System.out.println("\nInstruccion: '" + instruccion + "'");
+        String[] split = instruccion.split(" ");
+        for(int i = 0; i < split.length; i++)
+        {
+            System.out.println("\nSplit[" + i + "]: '" + split[i] + "'");
+        }*/
 
         //System.out.println(controlador.imprimir());
         //System.out.println("\nListp: " + controlador.listp(instruccion));

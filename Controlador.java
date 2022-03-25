@@ -375,9 +375,26 @@ public class Controlador
 
     public String list(String instruccion)
     {
+        String list = "(";
         instruccion = this.limpiar(instruccion, "l", "t", 3);
-        instruccion = "(" + instruccion + ")";
-        return instruccion;
+
+        String[] split = instruccion.split(" ");
+        for(int i = 0; i < split.length; i++)
+        {
+            Pattern pattern = Pattern.compile("^[0-9]+$", Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(split[i]);
+            boolean numeros = matcher.find();
+            if(numeros) list += split[i] + " ";
+            else //significa que son letras, se verifica si ese conjunto de letras es una variable
+            {
+                if(this.variables.containsKey(split[i])) list += this.variables.get(split[i]) + " "; //una variable con valor numerico
+                else if(this.listas.containsKey(split[i])) list += this.listas.get(split[i]) + " "; //una variable que es lista
+                else list += split[i] + " "; //no era ninguna variable, por lo que solo se le agrega la letra
+            }
+        }
+        list = list.trim();
+        list += ")";
+        return list;
     }
 
     public boolean listp(String instruccion)
