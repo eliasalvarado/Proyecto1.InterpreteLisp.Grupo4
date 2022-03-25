@@ -20,7 +20,7 @@ public class Principal
 
         System.out.println("\nIngrese la linea: ");
         instruccion = scanner.nextLine();
-        System.out.println("\nList: " + controlador.list(instruccion));
+        System.out.println("\nList: " + controlador.listp(instruccion));
         /*instruccion = controlador.limpiar(instruccion, "l", "t", 3);
         System.out.println("\nInstruccion: '" + instruccion + "'");
         String[] split = instruccion.split(" ");
