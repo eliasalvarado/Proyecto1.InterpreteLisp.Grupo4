@@ -5,24 +5,18 @@ import java.util.*;
 
 public class Lector {
 
-    public static String leerArchivo(String path) {
-        String instrucciones = "";
+    public static ArrayList<String> leerArchivo(String path) {
+        ArrayList<String> lista = new ArrayList<>();
         try {
             File doc = new File(path);
             Scanner obj = new Scanner(doc);
             while (obj.hasNextLine()) {
-                instrucciones = instrucciones + obj.nextLine();
+                lista.add(obj.nextLine());
             }
-            String[] cadenas = instrucciones.split(" ");
-            instrucciones = "";
-            for(String cadena: cadenas){
-                instrucciones = instrucciones+cadena;
-            }
-            instrucciones = instrucciones.replace("_", " ");
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return instrucciones;
+        return lista;
     }
     
     public static void ejecutarInstruccion(String instrucciones){
