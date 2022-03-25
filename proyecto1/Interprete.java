@@ -14,8 +14,9 @@ public class Interprete {
         funciones.put("defun", "Se añade una nueva función");
         funciones.put("setq", "Se define una variable");
         funciones.put("atom", "Se evalúa atom");
-        funciones.put("list", "Se evalua lista");
-        funciones.put("=", "Se iguala una funcion");
+        funciones.put("list", "Se crea lista");
+        funciones.put("listp", "Se evalua lista");
+        funciones.put("equal", "Se iguala una funcion");
         funciones.put("<", "Se evalua si es menor");
         funciones.put(">", "Se evalua si es mayor");
     }
