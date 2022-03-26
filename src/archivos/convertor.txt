@@ -1,0 +1,13 @@
+(setq_resultado_0)
+(
+    defun_factorial(x)
+    (
+        cond_(=_x_0)_1
+              (>_x_0)(*_x_(factorial(-_x_1)))
+            
+    )
+)
+(setq_resultado_(factorial_5))
+
+(quote_"El_resultado_es:")
+(quote_resultado)
