@@ -13,12 +13,14 @@ import java.util.Scanner;
  * @author Sebastián
  */
 public class Controlador {
-        public static void main(String[] args) {
+
+    public static void main(String[] args) {
 
 		Scanner in = new Scanner(System.in);
 		Interprete inter = new Interprete();
                 ArrayList<String> instrucciones = new ArrayList<>();
                 instrucciones = Lector.leerArchivo("F:\\Programacion\\Proyecto1\\src\\archivos\\linea.txt");
+                System.out.println("----------EJECUCION DE PROGRAMA PREESTABLECIDO----------");
                 for(String instruccion: instrucciones){
                     System.out.println(instruccion);
                     inter.Evaluar(instruccion, SintaxScanner.getState(instruccion));
@@ -37,9 +39,8 @@ public class Controlador {
 			
 		}while (!opt.equals("exit"));
 	}
-       /* public static void main(String[] args) {
+    /*public static void main(String[] args) {
         Interprete inter = new Interprete();
-        ArrayList<String> instrucciones = inter.Jerarqui("(func (func (+ x 10)))");
-            System.out.println(instrucciones);
+        System.out.println(inter.limpiar("(defun f (x)(+ x 5))", "d", "n", 4));
     }*/
 }

@@ -642,6 +642,8 @@ public class Interprete {
         } else if (funcion == 12) {
             System.out.println(Quote(limpiar(expresion, "q", "e", 4)));
         } else if (funcion == 13) {
+            expresion = limpiar(expresion, "c", "d", 3);
+            expresion = expresion.replaceFirst("\\)\\) \\(\\(", "))\n((");
             System.out.println(Cond(expresion));
         } else if (funcion == 14) {
             System.out.println("Instruccion no soportada ");
@@ -684,5 +686,27 @@ public class Interprete {
             }
         }
     }
+    
+    public static void defun(String expresion, HashMap<String, String> funciones) {
+        int parentesis = 0;
+        String temp = "";
+        for (int i = 2; i < expresion.length(); i++) {
+            temp = temp + expresion.charAt(i);
+            if (expresion.charAt(i) == '(') {
+                parentesis++;
+            } else if (expresion.charAt(i) == ')') {
+                parentesis--;
+            }
 
+            funciones.put("" + expresion.charAt(0), temp);
+        }
+    }
+    
+    public void ejecutarFuncion(String key){
+        
+    }
+    
+    /*public ArrayList<String> anidado(String expresion){
+
+    }*/
 }
