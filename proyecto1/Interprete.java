@@ -11,11 +11,13 @@ public class Interprete {
 
     private HashMap<String, Integer> variables;
     private HashMap<String, String> listas;
+    private HashMap<String, String> funciones;
     public CalculadoraInterpreter calculadora;
 
     public Interprete() {
         this.variables = new HashMap<>();
         this.listas = new HashMap<>();
+        this.funciones = new HashMap<>();
         this.calculadora = new CalculadoraInterpreter();
     }
     
@@ -647,7 +649,7 @@ public class Interprete {
             System.out.println(Cond(expresion));
             
         } else if (funcion == 14) {
-            System.out.println("Instruccion no soportada ");
+            defun(expresion, this.funciones);
         }
     }
 
@@ -688,7 +690,7 @@ public class Interprete {
         }
     }
     
-    public static void defun(String expresion, HashMap<String, String> funciones) {
+   public static void defun(String expresion, HashMap<String, String> funciones) {
         int parentesis = 0;
         String temp = "";
         for (int i = 2; i < expresion.length(); i++) {
@@ -702,12 +704,30 @@ public class Interprete {
             funciones.put("" + expresion.charAt(0), temp);
         }
     }
-    
-    public void ejecutarFuncion(String key){
-        
-    }
-    
-    /*public ArrayList<String> anidado(String expresion){
-
-    }*/
+     public static String ejecutarFuncion(String expresion, HashMap<String, String> funciones, int parametro){
+         String expresion2 = "f (5)";
+         String temp = "";
+         String instrucciones = "";
+         if(funciones.containsKey(expresion2.charAt(0))){
+             for(int i = 2; i < expresion2.length(); i++){
+                 if(expresion.charAt(i) != ')'){
+                     temp = temp+expresion.charAt(i);
+                 }
+             }
+            instrucciones = funciones.get(expresion2.charAt(0));
+            String replaceparam = "";
+            String variables = "abcdefghijklmnopqrstuvwxyz";
+            boolean flag = true;
+            for(int a = 0; a < instrucciones.length(); a++){
+                if(instrucciones.charAt(a) == ')'){
+                    flag = false;
+                }
+                else if(variables.contains(""+instrucciones.charAt(a))){
+                    replaceparam = replaceparam+instrucciones.charAt(a);
+                }
+            }
+            instrucciones.replaceAll(replaceparam, ""+parametro);
+         }
+         return instrucciones;
+     }
 }
