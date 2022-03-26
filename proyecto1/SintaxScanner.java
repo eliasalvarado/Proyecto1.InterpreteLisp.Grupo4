@@ -60,7 +60,7 @@ public class SintaxScanner {
         } else if (evaluate("^[ ]*[(][ ]*quote[ ]+[A-Za-z0-9][ ]*[)][ ]*$|^[ ]*[(][ ]*quote[ ]+[(][ ]*[A-Za-z0-9 ]+[ ]*[)][ ]*[)][ ]*$", expresion)) //QUOTE
         {
             return 12;
-        } else if (evaluate("^[ ]*[(]cond[ ]+([(][ ]*[(][ ]*[\\=\\<\\>][ ]+[A-Za-z0-9][ ]+[A-Za-z0-9][ ]*[)][ ]*[(][ ]*([A-Za-z0-9]+[ ]*)+[ ]*[)][ ]*[)]\n*)+[ ]*[)][ ]*$", expresion)) //COND
+        } else if (evaluate("^[ ]*[(]cond[ ]+([(][ ]*[(][ ]*[\\=\\<\\>][ ]+[A-Za-z0-9][ ]+[A-Za-z0-9][ ]*[)][ ]*[(][ ]*([A-Za-z0-9]+[ ]*)+[ ]*[)][ ]*[)] *)+[ ]*[)][ ]*$", expresion)) //COND
         {
             return 13;
         } else if (evaluate("^[ ]*[(][ ]*defun[ ]+[A-Za-z0-9]+[ ]*[(][ ]*([A-Za-z0-9]+[ ]*)+[ ]*[)][ ]*[(]*[^()\\\"']*.*[)][ ]*$", expresion)) //defun

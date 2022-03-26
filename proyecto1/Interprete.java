@@ -643,8 +643,9 @@ public class Interprete {
             System.out.println(Quote(limpiar(expresion, "q", "e", 4)));
         } else if (funcion == 13) {
             expresion = limpiar(expresion, "c", "d", 3);
-            expresion = expresion.replaceFirst("\\)\\) \\(\\(", "))\n((");
+            expresion = expresion.replaceAll("\\)\\) \\(\\(", "))\n((");
             System.out.println(Cond(expresion));
+            
         } else if (funcion == 14) {
             System.out.println("Instruccion no soportada ");
         }
