@@ -21,7 +21,6 @@ public class Controlador {
                 instrucciones = Lector.leerArchivo("F:\\Programacion\\Proyecto1\\src\\archivos\\linea.txt");
                 for(String instruccion: instrucciones){
                     System.out.println(instruccion);
-                    System.out.println(SintaxScanner.getState(instruccion));
                     inter.Evaluar(instruccion, SintaxScanner.getState(instruccion));
                 }
                 
@@ -38,4 +37,9 @@ public class Controlador {
 			
 		}while (!opt.equals("exit"));
 	}
+       /* public static void main(String[] args) {
+        Interprete inter = new Interprete();
+        ArrayList<String> instrucciones = inter.Jerarqui("(func (func (+ x 10)))");
+            System.out.println(instrucciones);
+    }*/
 }

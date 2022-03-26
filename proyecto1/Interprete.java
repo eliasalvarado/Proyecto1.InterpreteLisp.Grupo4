@@ -9,12 +9,19 @@ import java.util.regex.Pattern;
 
 public class Interprete {
 
-    private HashMap<String, Integer> variables = new HashMap<>();
-    private HashMap<String, String> listas = new HashMap<>();
-    private CalculadoraPosFix calculadora = new CalculadoraPosFix();
+    private HashMap<String, Integer> variables;
+    private HashMap<String, String> listas;
+    public CalculadoraInterpreter calculadora;
 
-    public void Jerarqui(String exp) {
-        ArrayList<String> jerarquias = new ArrayList<String>();
+    public Interprete() {
+        this.variables = new HashMap<>();
+        this.listas = new HashMap<>();
+        this.calculadora = new CalculadoraInterpreter();
+    }
+    
+    
+    public ArrayList<String> Jerarqui(String exp) {
+        ArrayList<String> jerarquias = new ArrayList<>();
         boolean bandera = true;
         int pos = 0;
         String func = "";
@@ -38,6 +45,7 @@ public class Interprete {
                 bandera = false;
             }
         }
+        return jerarquias;
     }
 
     public void setq(String instruccion) {
@@ -394,7 +402,7 @@ public class Interprete {
         return instruccion;
     }
 
-     public String list(String instruccion) {
+    public String list(String instruccion) {
         String list = "(";
         instruccion = this.limpiar(instruccion, "l", "t", 3);
 
@@ -421,7 +429,7 @@ public class Interprete {
         return list;
     }
 
-     public String listp(String instruccion) {
+    public String listp(String instruccion) {
         instruccion = this.limpiar(instruccion, "l", "p", 4);
         //aqui debe ir un codigo para convertir la "instruccion" si es que esta viene con una funcion definida por el usuario
         Pattern pattern = Pattern.compile("^[0-9]+$", Pattern.CASE_INSENSITIVE);
@@ -447,7 +455,6 @@ public class Interprete {
     public String Quote(String arg) {
         return arg;
     }
-
 
     public String Cond(String args) {
         String[] lineas = args.split("\\n");
@@ -609,35 +616,39 @@ public class Interprete {
     }
 
     public void Evaluar(String expresion, int funcion) {
-        if(funcion == 0){
+        if (funcion == 0) {
             System.out.println("Expresion invalida");
-        }   
-        else if (funcion == 1) {
+        } else if (funcion == 1) {
             setq(expresion);
-        }else if (funcion == 2) {
+        } else if (funcion == 2) {
             System.out.println(atom(expresion));
-        }else if (funcion == 3) {
+        } else if (funcion == 3) {
             System.out.println(list(expresion));
-        }else if (funcion == 4) {
+        } else if (funcion == 4) {
             System.out.println(listp(expresion));
-        }else if (funcion == 5) {
+        } else if (funcion == 5) {
             System.out.println(equal(expresion));
-        }else if (funcion == 6) {
+        } else if (funcion == 6) {
             System.out.println(descendente(expresion));
-        }else if (funcion == 7) {
+        } else if (funcion == 7) {
             System.out.println(ascendente(expresion));
-        }else if (funcion >= 8 && funcion <= 11){
-            System.out.println(calculadora.Evaluate("* 5 2"));
-        }else if (funcion == 12) {
+        } else if (funcion >= 8 && funcion <= 11) {
+            expresion = expresion.trim().replaceAll("\\s+", " ");
+            StringBuilder editado = new StringBuilder(expresion);
+            editado.deleteCharAt(0);
+            editado.deleteCharAt(editado.length() - 1);
+            expresion = new String(editado);
+            System.out.println(calculadora.Evaluate(PrefixToPosfix.convPrefixToPosfix(expresion), variables));
+        } else if (funcion == 12) {
             System.out.println(Quote(limpiar(expresion, "q", "e", 4)));
-        }else if (funcion == 13) {
+        } else if (funcion == 13) {
             System.out.println(Cond(expresion));
-        }else if (funcion == 14){
+        } else if (funcion == 14) {
             System.out.println("Instruccion no soportada ");
         }
     }
 
-     public boolean validarFunciones(String expresion) {
+    public boolean validarFunciones(String expresion) {
         boolean isExpression = false;
         boolean flag = false;
         for (int i = 0; i < expresion.length(); i++) {
@@ -653,7 +664,7 @@ public class Interprete {
         return isExpression;
     }
 
-     public void leerFunciones(String expresion) {
+    public void leerFunciones(String expresion) {
         boolean finish = false;
         int charfinal = 0;
         while (!finish) {
