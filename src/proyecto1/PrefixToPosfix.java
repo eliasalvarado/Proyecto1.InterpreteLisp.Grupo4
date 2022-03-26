@@ -1,7 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Clase PrefixToPosfix. Case encargada de traducir una expresion prefix a una posfix
+ * Autores: 
+ *      Herber Sebastian Silva Muñoz -	21764
+ *      Daniel Esteban Morales Urizar - 21785 
+ *      Elias Alberto Alvarado Raxon -	21808
+ * Fecha de creacion: 25/03/2022
  */
 package proyecto1;
 
@@ -11,7 +14,12 @@ import java.util.Stack;
  *
  * @author Sebastián
  */
-public class PrefixToPosfix {
+public class PrefixToPosfix
+{
+    /** 
+     * @param expresion
+     * @return String
+     */
     public static String invertir(String expresion){
         StringBuilder strn = new StringBuilder(expresion);
         expresion = strn.reverse().toString();
@@ -29,6 +37,10 @@ public class PrefixToPosfix {
         return expresion;
     }
     
+    /** 
+     * @param expresion
+     * @return String
+     */
     public static String convPrefixToPosfix(String expresion){
         expresion = invertir(expresion);
         String temp = "";

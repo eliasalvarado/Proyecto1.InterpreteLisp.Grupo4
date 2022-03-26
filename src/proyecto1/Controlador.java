@@ -1,8 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Clase Controlador. Sera la encargada de interactuar con el usuario
+ * Autores: 
+ *      Herber Sebastian Silva Muñoz -	21764
+ *      Daniel Esteban Morales Urizar - 21785 
+ *      Elias Alberto Alvarado Raxon -	21808
+ * Fecha de creacion: 24/03/2022
  */
+
 package proyecto1;
 
 import java.util.ArrayList;
@@ -12,8 +16,11 @@ import java.util.Scanner;
  *
  * @author Sebastián
  */
-public class Controlador {
-
+public class Controlador
+{
+    /** 
+     * @param args
+     */
     public static void main(String[] args) {
 
 		Scanner in = new Scanner(System.in);

@@ -1,25 +1,29 @@
-/*
-Calculadora de Expresiones Posfix
-@author Sebastian Silva
-@date 18/02/2022
+/**
+ * Clase CalculadoraInterpreter. Encargada de realizar las operaciones aritmeticas
+ * Autores: 
+ *      Herber Sebastian Silva Muñoz -	21764
+ *      Daniel Esteban Morales Urizar - 21785 
+ *      Elias Alberto Alvarado Raxon -	21808
+ * Fecha de creacion: 24/03/2022
  */
 package proyecto1;
 
 import java.util.HashMap;
 
-public class CalculadoraInterpreter {
-
+public class CalculadoraInterpreter
+{
     /*
- * Constructor de CalculadoraPosFix
+     * Constructor de CalculadoraPosFix
      */
     public CalculadoraInterpreter() {
     }
-
-    /*
+    
+    /** 
      * Metodo que evalua una linea de texto que contiene una expresion posfix, 
-realiza la operacion y devuelve el resultado
-     * @param expresion String. 
-     * @return int.
+     * realiza la operacion y devuelve el resultado
+     * @param expresion
+     * @param variables
+     * @return int
      */
     public int Evaluate(String expresion, HashMap<String, Integer> variables) {
         //Se hace un split de el String dado por espacios.

@@ -1,3 +1,12 @@
+/**
+ * Clase Interprete. Clase responsable que funcione el interprete lisp
+ * Autores: 
+ *      Herber Sebastian Silva Muñoz -	21764
+ *      Daniel Esteban Morales Urizar - 21785 
+ *      Elias Alberto Alvarado Raxon -	21808
+ * Fecha de creacion: 24/03/2022
+ */
+
 package proyecto1;
 
 import java.util.ArrayList;
@@ -7,8 +16,8 @@ import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Interprete {
-
+public class Interprete
+{
     private HashMap<String, Integer> variables;
     private HashMap<String, String> listas;
     private HashMap<String, String> funciones;
@@ -21,7 +30,10 @@ public class Interprete {
         this.calculadora = new CalculadoraInterpreter();
     }
     
-    
+    /** 
+     * @param exp
+     * @return ArrayList<String>
+     */
     public ArrayList<String> Jerarqui(String exp) {
         ArrayList<String> jerarquias = new ArrayList<>();
         boolean bandera = true;
@@ -50,6 +62,9 @@ public class Interprete {
         return jerarquias;
     }
 
+    /** 
+     * @param instruccion
+     */
     public void setq(String instruccion) {
         instruccion = this.limpiar(instruccion, "s", "q", 3);
 
@@ -99,6 +114,13 @@ public class Interprete {
         }
     }
 
+    /** 
+     * @param instruccion
+     * @param letraInicio
+     * @param letraFinal
+     * @param largo
+     * @return String
+     */
     public String limpiar(String instruccion, String letraInicio, String letraFinal, int largo) {
         instruccion = instruccion.trim().replaceAll("\\s+", " ");
         StringBuilder editado = new StringBuilder(instruccion);
@@ -113,11 +135,17 @@ public class Interprete {
         instruccion = instruccion.replaceAll("\\s+", " ");
         return instruccion;
     }
-
+    
+    /** 
+     * @return String
+     */
     public String imprimir() {
         return "\n" + String.valueOf(this.variables) + "\n" + String.valueOf(this.listas);
     }
 
+    /** 
+     * @return String
+     */
     public String operaciones() {
         String info = "";
         info += "\nPrimera operacion: " + (this.variables.get("x") + this.variables.get("y") + this.variables.get("z"));
@@ -126,7 +154,11 @@ public class Interprete {
 
         return info;
     }
-
+    
+    /** 
+     * @param instruccion
+     * @return String
+     */
     public String atom(String instruccion) //CAMBIAR A QUE DEVUELVA "T" SI ES TRUE O "NIL" SI ES FALSO
     {
         instruccion = this.limpiar(instruccion, "a", "m", 3);
@@ -153,55 +185,12 @@ public class Interprete {
             }
             return "NIL";
         }
-
-        /*
-        boolean esAtom = false;
-        System.out.println("\nEntrada ATOM: '" + instruccion + "'");
-        instruccion = limpiar(instruccion, "a", "m", 3);
-        System.out.println("\nLimpiado ATOM: '" + instruccion + "'");
-        StringBuilder editado = new StringBuilder(instruccion);
-        System.out.println("\nEditado ATOM: '" + editado + "'");
-        String lista = "";
-        int inicio = 0;
-        int fin = 0;
-        for(int i = 0; i < editado.length(); i++)
-        {
-            String caracter = String.valueOf(editado.charAt(i));
-            if(caracter.equals("(")) inicio = i;
-            if(caracter.equals(")")) fin = i;
-        }
-        boolean parentesis = false;
-        if(inicio != 0 || fin != 0) //Si son distinto a 0 uno de los dos, significa que el for anterior identifico otros parentesis dentro de la cadena
-        {
-            parentesis = true;
-            for(int x = inicio; x <= fin; x++)
-            {
-                lista += String.valueOf(editado.charAt(x)); //Se le concatena a "lista" todos los caracteres que estan dentro de los parentesis de "editado", incluyendo los mismos parentesis
-            }
-            StringBuilder listaE = new StringBuilder(lista);
-            for(int i = 0; i < listaE.length(); i++)
-            {
-                String caracter = String.valueOf(listaE.charAt(i));
-                if(caracter.equals("(") || caracter.equals(")")) listaE.deleteCharAt(i); //Se eliminan los parentesis para poder hacer la limpieza de espacios en blanco innecesarios
-            }
-            lista = new String(listaE).trim().replaceAll("\\s+", " ");
-            lista = "(" + lista + ")";
-        }
-        if(parentesis)
-        {
-            //codigo para ver si lo que esta dentro de los parentesis es una funcion o algo que podria ser un ATOM
-            return false;
-        }
-        else
-        {
-            if(instruccion.length() > 0 ) return true;
-        }
-        System.out.println("\nLimpiado ATOM: '" + instruccion + "'");
-        
-        return esAtom;
-         */
     }
-
+    
+    /** 
+     * @param instruccion
+     * @return String
+     */
     public String equal(String instruccion) {
         instruccion = this.limpiar(instruccion, "e", "l", 4);
 
@@ -273,6 +262,10 @@ public class Interprete {
         }
     }
 
+    /** 
+     * @param instruccion
+     * @return String
+     */
     public String ascendente(String instruccion) {
         instruccion = this.limpiarSimbolo(instruccion);
 
@@ -329,7 +322,11 @@ public class Interprete {
         }
         return "T";
     }
-
+    
+    /** 
+     * @param instruccion
+     * @return String
+     */
     public String descendente(String instruccion) {
         instruccion = this.limpiarSimbolo(instruccion);
 
@@ -388,7 +385,11 @@ public class Interprete {
         }
         return "T";
     }
-
+    
+    /** 
+     * @param instruccion
+     * @return String
+     */
     public String limpiarSimbolo(String instruccion) {
         instruccion = instruccion.trim().replaceAll("\\s+", " ");
         StringBuilder editado = new StringBuilder(instruccion);
@@ -404,6 +405,10 @@ public class Interprete {
         return instruccion;
     }
 
+    /** 
+     * @param instruccion
+     * @return String
+     */
     public String list(String instruccion) {
         String list = "(";
         instruccion = this.limpiar(instruccion, "l", "t", 3);
@@ -430,7 +435,11 @@ public class Interprete {
         list += ")";
         return list;
     }
-
+    
+    /** 
+     * @param instruccion
+     * @return String
+     */
     public String listp(String instruccion) {
         instruccion = this.limpiar(instruccion, "l", "p", 4);
         //aqui debe ir un codigo para convertir la "instruccion" si es que esta viene con una funcion definida por el usuario
@@ -453,11 +462,19 @@ public class Interprete {
             return "T";
         }
     }
-
+    
+    /** 
+     * @param arg
+     * @return String
+     */
     public String Quote(String arg) {
         return arg;
     }
-
+    
+    /** 
+     * @param args
+     * @return String
+     */
     public String Cond(String args) {
         String[] lineas = args.split("\\n");
         String txt = "";
@@ -616,7 +633,11 @@ public class Interprete {
         }
         return txt;
     }
-
+    
+    /** 
+     * @param expresion
+     * @param funcion
+     */
     public void Evaluar(String expresion, int funcion) {
         if (funcion == 0) {
             System.out.println("Expresion invalida");
@@ -652,7 +673,11 @@ public class Interprete {
             defun(expresion, this.funciones);
         }
     }
-
+    
+    /** 
+     * @param expresion
+     * @return boolean
+     */
     public boolean validarFunciones(String expresion) {
         boolean isExpression = false;
         boolean flag = false;
@@ -668,7 +693,10 @@ public class Interprete {
         }
         return isExpression;
     }
-
+    
+    /** 
+     * @param expresion
+     */
     public void leerFunciones(String expresion) {
         boolean finish = false;
         int charfinal = 0;
@@ -689,7 +717,11 @@ public class Interprete {
             }
         }
     }
-    
+   
+   /** 
+    * @param expresion
+    * @param funciones
+    */
    public static void defun(String expresion, HashMap<String, String> funciones) {
         int parentesis = 0;
         String temp = "";
@@ -704,6 +736,13 @@ public class Interprete {
             funciones.put("" + expresion.charAt(0), temp);
         }
     }
+     
+     /** 
+      * @param expresion
+      * @param funciones
+      * @param parametro
+      * @return String
+      */
      public static String ejecutarFuncion(String expresion, HashMap<String, String> funciones, int parametro){
          String expresion2 = "f (5)";
          String temp = "";

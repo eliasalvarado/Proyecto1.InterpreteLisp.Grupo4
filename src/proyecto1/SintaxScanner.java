@@ -1,28 +1,38 @@
-package proyecto1;
-
 /**
- * Clase SintaxScanner. Encargada de evaluar y devolver un entero dependiendo de
- * la expresion que se le envie Autores: Herber Sebastian Silva Muñoz -	21764
- * Daniel Esteban Morales Urizar - 21785 Elias Alberto Alvarado Raxon -	21808
+ * Clase SintaxScanner. Encargada de evaluar y devolver un entero dependiendo de la expresion que se le envie 
+ * Autores: 
+ *      Herber Sebastian Silva Muñoz -	21764
+ *      Daniel Esteban Morales Urizar - 21785 
+ *      Elias Alberto Alvarado Raxon -	21808
  * Fecha de creacion: 24/03/2022
  */
+
+package proyecto1;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
-public class SintaxScanner {
-
-    /**
-     * *
-     * Devolvera un numero entero dependiendo la expresion que se le envie. 0:
-     * expresion no encontrada, podría ser una defun del usuario 1: setq 2: atom
-     * 3: list 4: listp 5: equal 6: > (descendente) 7: < (ascendente) 8: suma 9:
-     * resta 10: multiplicacion 11: division 12: quote 13: cond 14: defun @param
-     * Expresion La expresion puede ser ingresada por el usuario u obtenida del
-     * archivo de texto @return Un ent
-     *
-     * e
-     * ro
-     */
+public class SintaxScanner
+{
+    /***
+	 * Devolvera un numero entero dependiendo la expresion que se le envie.
+	 * 0: expresion no encontrada, podría ser una defun del usuario
+	 * 1: setq
+	 * 2: atom
+	 * 3: list
+	 * 4: listp
+	 * 5: equal
+	 * 6: > (descendente)
+	 * 7: < (ascendente)
+	 * 8: suma
+	 * 9: resta
+	 * 10: multiplicacion
+	 * 11: division
+	 * 12: quote
+	 * 13: cond
+	 * 14: defun
+	 * @param Expresion La expresion puede ser ingresada por el usuario u obtenida del archivo de texto
+	 * @return Un entero
+	 */
     public static int getState(String expresion) {
         if (evaluate("^[ ]*[(][ ]*setq[ ]+[\\w]+[ ]+([0-9]+[ ]*)+[)][ ]*$|^[ ]*[(][ ]*setq[ ]+[\\w]+[ ]+[(][ ]*([0-9]+[ ]*)+[ ]*[)][ ]*[)][ ]*$", expresion)) //SETQ
         {
@@ -72,14 +82,11 @@ public class SintaxScanner {
     }
 
     /**
-     * *
-     * Metodo encargado de evaluar a la expresion y hacer un match si este
-     * concuerda con el regex
-     *
-     * @param regex El pattern de la expresion a evaluar
-     * @param expresion La expresion en cuestion
-     * @return True si concuerda, False si no.
-     */
+	 * Metodo encargado de evaluar a la expresion y hacer un match si este concuerda con el regex
+	 * @param regex El pattern de la expresion a evaluar
+	 * @param expresion La expresion en cuestion
+	 * @return True si concuerda, False si no.
+	 */
     private static boolean evaluate(String regex, String expresion) {
         Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(expresion);

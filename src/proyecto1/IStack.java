@@ -1,3 +1,8 @@
+/**
+ * Interfaz IStack. Se implementara en la clase StackArrayList
+ * Fecha de creacion: 24/03/2022
+ */
+
 package proyecto1;
 
 /**
